@@ -15,8 +15,8 @@ namespace DateCalculator
             var totalDays = (int) (secondDate - firstDate).TotalDays - 1;
             var numberOfWeekends = (int) (totalDays + (int) firstDate.DayOfWeek + 1) / 7 * 2;
 
-            if (firstDate.DayOfWeek == DayOfWeek.Saturday) numberOfWeekends--;
-            if (secondDate.DayOfWeek == DayOfWeek.Sunday) numberOfWeekends--;
+            if (firstDate.IsWeekend()) numberOfWeekends--;
+            if (secondDate.IsWeekend()) numberOfWeekends--;
 
             return totalDays - numberOfWeekends;
         }
@@ -28,7 +28,7 @@ namespace DateCalculator
 
             foreach (var holiday in publicHolidays)
             {
-                if (firstDate < holiday && holiday < secondDate && holiday.DayOfWeek != DayOfWeek.Saturday && holiday.DayOfWeek != DayOfWeek.Sunday)
+                if (firstDate < holiday && holiday < secondDate && !holiday.IsWeekend())
                 {
                     totalDays--; 
                 }
