@@ -13,7 +13,7 @@ namespace DateCalculator
             if (secondDate <= firstDate) return 0;
 
             var totalDays = (int) (secondDate - firstDate).TotalDays - 1;
-            var numberOfWeekends = (int) (totalDays + (int) firstDate.DayOfWeek + 1) / 7 * 2;
+            var numberOfWeekends = (totalDays + (int) firstDate.DayOfWeek + 1) / 7 * 2;
 
             if (firstDate.IsWeekend()) numberOfWeekends--;
             if (secondDate.IsWeekend()) numberOfWeekends--;
