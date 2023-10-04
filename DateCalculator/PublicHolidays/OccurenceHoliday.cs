@@ -1,9 +1,4 @@
 ﻿using DateCalculator.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DateCalculator.PublicHolidays
 {
@@ -16,7 +11,7 @@ namespace DateCalculator.PublicHolidays
         {
             if (Occurence != Occurence.Last)
             {
-                DateTime firstDayOfMonth = new DateTime(DateTime.Now.Year, (int)Month + 1, 1);
+                var firstDayOfMonth = new DateTime(DateTime.Now.Year, (int)Month + 1, 1);
                 var daysUntilWeekday = ((int)DayOfWeek - (int)firstDayOfMonth.DayOfWeek + 7) % 7;
                 var daysToAdd = ((int)Occurence * 7) + daysUntilWeekday;
                 return firstDayOfMonth.AddDays(daysToAdd);
