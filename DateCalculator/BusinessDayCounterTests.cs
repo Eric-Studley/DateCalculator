@@ -37,18 +37,15 @@ namespace DateCalculator
 
         [Theory]
         [ClassData(typeof(BusinessDaysTestData))]
-        public void BusinessDaysBetweenTwoDatesxTests(DateTime startDate, DateTime endDate, int expectedResult)
+        public void BusinessDaysBetweenTwoDatesVariableHolidayTests(DateTime startDate, DateTime endDate, int expectedResult)
         {
             var publicHolidays = new List<Holiday> { new FixedHoliday { Month = Month.April, Day = 25, Name = "Anzac Day" },
-                                                     new WeekendAdjustedHoliday { Month = Month.October, Day = 1, Name = "New years Day" },
-                                        new WeekendAdjustedHoliday { Month = Month.September, Day = 30, Name = "New years Day" }};
+                                                     new FixedHoliday { Month = Month.December, Day = 25, Name = "Christmas Day" },
+                                                     new FixedHoliday { Month = Month.December, Day = 26, Name = "Boxing Day" },
+                                                     new WeekendAdjustedHoliday { Month = Month.January, Day = 1, Name = "New years Day" },
+                                                     new OccurenceHoliday { Month = Month.June, DayOfWeek = DayOfWeek.Monday, Occurence = Occurence.Second, Name = "Queens Birthday" }};
 
-
-            foreach (var holiday in publicHolidays.Select(x => x.GetDate(2023)))
-            {
-                Console.WriteLine(holiday);
-            }
-
+        
             var counter = new BusinessDayCounter();
 
             var result = counter.BusinessDaysBetweenTwoDates(startDate, endDate, publicHolidays);

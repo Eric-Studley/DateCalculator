@@ -44,7 +44,7 @@ namespace DateCalculator
 
             var totalDays = WeekdaysBetweenTwoDates(firstDate, secondDate);
 
-            foreach (var holiday in publicHolidays.Select(x => x.GetDate(secondDate.Year)))
+            foreach (var holiday in publicHolidays.Select(x => x.GetDate(firstDate.Year)))
             {
                 if (firstDate < holiday && holiday < secondDate && !holiday.IsWeekend())
                 {

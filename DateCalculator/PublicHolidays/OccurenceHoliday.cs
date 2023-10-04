@@ -16,9 +16,9 @@ namespace DateCalculator.PublicHolidays
         {
             if (Occurence != Occurence.Last)
             {
-                DateTime firstDayOfMonth = new DateTime(DateTime.Now.Year, (int)Month, 1);
+                DateTime firstDayOfMonth = new DateTime(DateTime.Now.Year, (int)Month + 1, 1);
                 var daysUntilWeekday = ((int)DayOfWeek - (int)firstDayOfMonth.DayOfWeek + 7) % 7;
-                var daysToAdd = ((int)Occurence * 7) + daysUntilWeekday + 1;
+                var daysToAdd = ((int)Occurence * 7) + daysUntilWeekday;
                 return firstDayOfMonth.AddDays(daysToAdd);
             } 
             else
