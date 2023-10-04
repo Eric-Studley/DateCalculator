@@ -1,8 +1,9 @@
-﻿using DateCalculator.PublicHolidays;
+﻿using DateCalculator.Extensions;
+using DateCalculator.PublicHolidays;
 
 namespace DateCalculator
 {
-    public class BusinessDayCounter
+    public class BusinessDayCounter : IBusinessDayCounter
     {
         public int WeekdaysBetweenTwoDates(DateTime firstDate, DateTime secondDate)
         {
@@ -19,7 +20,6 @@ namespace DateCalculator
         public int BusinessDaysBetweenTwoDates(DateTime firstDate, DateTime secondDate, IList<DateTime> publicHolidays)
         {
             if (secondDate <= firstDate) return 0;
-
        
             var totalDays = WeekdaysBetweenTwoDates(firstDate, secondDate) - publicHolidays
                  .Count(holiday => firstDate < holiday && holiday < secondDate && !holiday.IsWeekend());

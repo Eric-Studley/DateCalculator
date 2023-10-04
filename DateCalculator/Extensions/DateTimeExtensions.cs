@@ -1,4 +1,4 @@
-﻿namespace DateCalculator
+﻿namespace DateCalculator.Extensions
 {
     public static class DateTimeExtensions
     {

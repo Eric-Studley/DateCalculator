@@ -2,7 +2,7 @@
 using DateCalculator.PublicHolidays;
 using Xunit;
 
-namespace DateCalculator
+namespace DateCalculator.Tests
 {
     public class BusinessDayCounterTests
     {
@@ -40,7 +40,7 @@ namespace DateCalculator
                                                      new WeekendAdjustedHoliday { Month = Month.January, Day = 1, Name = "New years Day" },
                                                      new OccurenceHoliday { Month = Month.June, DayOfWeek = DayOfWeek.Monday, Occurence = Occurence.Second, Name = "Queens Birthday" }};
 
-        
+
             var counter = new BusinessDayCounter();
 
             var result = counter.BusinessDaysBetweenTwoDates(startDate, endDate, publicHolidays);
