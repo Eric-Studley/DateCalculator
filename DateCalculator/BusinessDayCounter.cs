@@ -25,32 +25,22 @@ namespace DateCalculator
         {
             if (secondDate <= firstDate) return 0;
 
-            var totalDays = WeekdaysBetweenTwoDates(firstDate, secondDate);
+       
+            var totalDays = WeekdaysBetweenTwoDates(firstDate, secondDate) - publicHolidays
+                 .Count(holiday => firstDate < holiday && holiday < secondDate && !holiday.IsWeekend());
 
-            foreach (var holiday in publicHolidays)
-            {
-                if (firstDate < holiday && holiday < secondDate && !holiday.IsWeekend())
-                {
-                    totalDays--; 
-                }
-            }
-
-           return totalDays;
+            return totalDays;
         }
 
         public int BusinessDaysBetweenTwoDates(DateTime firstDate, DateTime secondDate, IList<Holiday> publicHolidays)
         {
             if (secondDate <= firstDate) return 0;
 
-            var totalDays = WeekdaysBetweenTwoDates(firstDate, secondDate);
-
-            foreach (var holiday in publicHolidays.Select(x => x.GetDate(firstDate.Year)))
-            {
-                if (firstDate < holiday && holiday < secondDate && !holiday.IsWeekend())
-                {
-                    totalDays--;
-                }
-            }
+            var totalDays = WeekdaysBetweenTwoDates(firstDate, secondDate) - publicHolidays
+                .Select(x => x.GetDate(firstDate.Year))
+                .Concat(publicHolidays.Select(x => x.GetDate(secondDate.Year)))
+                .Distinct()
+                .Count(holiday => firstDate < holiday && holiday < secondDate && !holiday.IsWeekend());
 
             return totalDays;
         }
