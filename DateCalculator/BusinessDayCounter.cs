@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DateCalculator.PublicHolidays;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,6 +36,23 @@ namespace DateCalculator
             }
 
            return totalDays;
+        }
+
+        public int BusinessDaysBetweenTwoDates(DateTime firstDate, DateTime secondDate, IList<Holiday> publicHolidays)
+        {
+            if (secondDate <= firstDate) return 0;
+
+            var totalDays = WeekdaysBetweenTwoDates(firstDate, secondDate);
+
+            foreach (var holiday in publicHolidays.Select(x => x.GetDate(secondDate.Year)))
+            {
+                if (firstDate < holiday && holiday < secondDate && !holiday.IsWeekend())
+                {
+                    totalDays--;
+                }
+            }
+
+            return totalDays;
         }
     }
 }

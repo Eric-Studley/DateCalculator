@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DateCalculator.Enums;
+using DateCalculator.PublicHolidays;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +27,27 @@ namespace DateCalculator
         public void BusinessDaysBetweenTwoDatesTests(DateTime startDate, DateTime endDate, int expectedResult)
         {
             var publicHolidays = new List<DateTime> { new DateTime(2013, 12, 25), new DateTime(2013, 12, 26), new DateTime(2014, 1, 1) };
+
+            var counter = new BusinessDayCounter();
+
+            var result = counter.BusinessDaysBetweenTwoDates(startDate, endDate, publicHolidays);
+
+            Assert.Equal(expectedResult, result);
+        }
+
+        [Theory]
+        [ClassData(typeof(BusinessDaysTestData))]
+        public void BusinessDaysBetweenTwoDatesxTests(DateTime startDate, DateTime endDate, int expectedResult)
+        {
+            var publicHolidays = new List<Holiday> { new FixedHoliday { Month = Month.April, Day = 25, Name = "Anzac Day" },
+                                                     new WeekendAdjustedHoliday { Month = Month.October, Day = 1, Name = "New years Day" },
+                                        new WeekendAdjustedHoliday { Month = Month.September, Day = 30, Name = "New years Day" }};
+
+
+            foreach (var holiday in publicHolidays.Select(x => x.GetDate(2023)))
+            {
+                Console.WriteLine(holiday);
+            }
 
             var counter = new BusinessDayCounter();
 
